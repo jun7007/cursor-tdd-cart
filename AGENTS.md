@@ -19,6 +19,7 @@ Invariant는 어떤 입력에서도 깨지면 안 되는 규칙이다.
 모든 테스트와 구현은 계약 ID를 참조한다.
 ID가 없는 동작은 구현하지 않는다.
 
+ 
 ## 테스트 명령
 - 전체 : `pytest -q`
 - Entity만 : `pytest tests/entity -q`
