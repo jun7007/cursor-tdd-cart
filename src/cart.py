@@ -10,34 +10,21 @@ E-2   price/qty 음수 → ValueError(인덱스 포함)
 """
 
 THRESHOLD = 50000  # INV-2 문턱 금액 (SSOT)
-THRESHOLD_RATE = 0.9  # INV-2 문턱 할인율 (SSOT)
-
-
-def _validate_line_items(items):
-    for i, item in enumerate(items):  # E-2
-        if item["price"] < 0 or item["qty"] < 0:  # E-2
-            raise ValueError(f"negative value at index {i}")  # E-2
 
 
 def subtotal(items):
-    if items is None:  # E-1
-        raise TypeError("items is None")  # E-1
-    _validate_line_items(items)  # E-2
-    total = 0  # INV-1
-    for item in items:  # INV-1
-        total += item["price"] * item["qty"]  # INV-1
-    return total  # INV-1
+    # TODO(E-1): items is None 이면 TypeError
+    # TODO(E-2): price/qty 음수면 ValueError(인덱스 포함)
+    # TODO(INV-1): Σ price*qty 반환
+    raise NotImplementedError
 
 
 def apply_threshold_discount(amount):
-    if amount >= THRESHOLD:  # INV-2
-        return round(amount * THRESHOLD_RATE)  # INV-2
-    return amount  # INV-2
+    # TODO(INV-2): 경계 포함(>=) 10% 할인, 반올림
+    raise NotImplementedError
 
 
 def final_total(items, is_vip=False):
-    st = subtotal(items)  # INV-4
-    amount = apply_threshold_discount(st)  # INV-3
-    if is_vip:  # INV-3
-        amount = round(amount * 0.95)  # INV-3
-    return amount  # INV-4
+    # TODO(INV-3): 문턱할인 → (VIP면) 5% 추가, 순서 고정
+    # TODO(INV-4): 결과가 subtotal 을 넘지 않음을 보장하는 위치
+    raise NotImplementedError
