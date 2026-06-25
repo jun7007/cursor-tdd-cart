@@ -12,11 +12,20 @@ E-2   price/qty 음수 → ValueError(인덱스 포함)
 THRESHOLD = 50000  # INV-2 문턱 금액 (SSOT)
 
 
+def _validate_line_items(items):
+    for i, item in enumerate(items):
+        if item["price"] < 0 or item["qty"] < 0:
+            raise ValueError(str(i))  # E-2
+
+
 def subtotal(items):
-    # TODO(E-1): items is None 이면 TypeError
-    # TODO(E-2): price/qty 음수면 ValueError(인덱스 포함)
-    # TODO(INV-1): Σ price*qty 반환
-    raise NotImplementedError
+    if items is None:
+        raise TypeError  # E-1
+    _validate_line_items(items)
+    total = 0
+    for item in items:
+        total += item["price"] * item["qty"]  # INV-1
+    return total
 
 
 def apply_threshold_discount(amount):
